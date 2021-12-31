@@ -10,13 +10,13 @@ public class ItemTypeTest {
     @Test
     void ShouldIdentifyHand() {
         ItemType itemType = ItemType.identifyItemType("Sulfuras, Hand of Ragnaros");
-        assertEquals(itemType, ItemType.HAND);
+        assertEquals(itemType, ItemType.LEGENDARY);
     }
 
     @Test
     void ShouldIdentifyPass() {
         ItemType itemType = ItemType.identifyItemType("Backstage passes to a TAFKAL80ETC concert");
-        assertEquals(itemType, ItemType.PASS);
+        assertEquals(itemType, ItemType.EVENT_PASS);
     }
 
     @Test

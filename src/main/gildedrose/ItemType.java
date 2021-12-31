@@ -1,9 +1,12 @@
 package main.gildedrose;
 
+import java.util.Arrays;
 import java.util.EnumSet;
 
 public enum ItemType implements Expires {
-    HAND ("Sulfuras, Hand of Ragnaros") {
+    LEGENDARY(new String[]{
+            "Sulfuras, Hand of Ragnaros"
+    }) {
         @Override
         public void updateSellIn(Item item) {
             // This item never changes.
@@ -13,7 +16,9 @@ public enum ItemType implements Expires {
         }
     },
 
-    PASS ("Backstage passes to a TAFKAL80ETC concert") {
+    EVENT_PASS (new String[]{
+            "Backstage passes to a TAFKAL80ETC concert"
+    }) {
         public void updateQuality(Item item) {
             if (item.sellIn < 0) {
                 item.quality = 0;
@@ -26,31 +31,33 @@ public enum ItemType implements Expires {
         }
     },
 
-    CHEESE("Aged Brie") {
+    CHEESE(new String[]{
+            "Aged Brie"
+    }) {
         public void updateQuality(Item item) {
             item.quality += item.sellIn < 0 ? 2 : 1;
             applyQualityLimits(item);
         }
     },
 
-    NORMAL("Normal") {
+    NORMAL(new String[]{}) {
         public void updateQuality(Item item) {
             item.quality += item.sellIn < 0 ? -2 : -1;
             applyQualityLimits(item);
         }
     };
 
-    public final String name;
+    public final String[] names;
     public abstract void updateQuality(Item item);
 
-    ItemType (String name) {
-        this.name = name;
+    ItemType (String[] names) {
+        this.names = names;
     }
 
     public static ItemType identifyItemType(String name) {
         return EnumSet.allOf(ItemType.class)
                 .stream()
-                .filter(itemType -> itemType.name.equals(name))
+                .filter(itemType -> Arrays.asList(itemType.names).contains(name))
                 .reduce(NORMAL, (acc, element) -> element);
     }
 
