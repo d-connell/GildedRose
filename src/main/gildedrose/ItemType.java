@@ -1,5 +1,7 @@
 package main.gildedrose;
 
+import java.util.EnumSet;
+
 public enum ItemType implements Expires {
     HAND ("Sulfuras, Hand of Ragnaros") {
         @Override
@@ -43,6 +45,13 @@ public enum ItemType implements Expires {
 
     ItemType (String name) {
         this.name = name;
+    }
+
+    public static ItemType identifyItemType(String name) {
+        return EnumSet.allOf(ItemType.class)
+                .stream()
+                .filter(itemType -> itemType.name.equals(name))
+                .reduce(NORMAL, (acc, element) -> element);
     }
 
     private static void applyQualityLimits(Item item) {
