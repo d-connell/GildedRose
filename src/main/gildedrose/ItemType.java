@@ -1,12 +1,16 @@
 package main.gildedrose;
 
-public enum ItemType {
-
+public enum ItemType implements Expires {
     HAND ("Sulfuras, Hand of Ragnaros") {
+        @Override
+        public void updateSellIn(Item item) {
+            // This item never changes.
+        }
         public void updateQuality(Item item) {
             // This item never changes.
         }
     },
+
     PASS ("Backstage passes to a TAFKAL80ETC concert") {
         public void updateQuality(Item item) {
             if (item.sellIn < 0) {
@@ -19,12 +23,14 @@ public enum ItemType {
             applyQualityLimits(item);
         }
     },
+
     CHEESE("Aged Brie") {
         public void updateQuality(Item item) {
             item.quality += item.sellIn < 0 ? 2 : 1;
             applyQualityLimits(item);
         }
     },
+
     NORMAL("Normal") {
         public void updateQuality(Item item) {
             item.quality += item.sellIn < 0 ? -2 : -1;
