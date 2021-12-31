@@ -16,26 +16,27 @@ public class GildedRose {
 
             item.sellIn = item.sellIn - 1;
 
+            if (item.name.equals("Backstage passes to a TAFKAL80ETC concert") && item.sellIn < 0) {
+                item.quality = 0;
+                return;
+            }
+
+            int change;
+
             if (item.name.equals("Aged Brie")) {
-                item.quality += item.sellIn < 0 ? 2 : 1;
-                item.quality = Math.min(50, item.quality);
-                return;
+                change= item.sellIn < 0 ? 2 : 1;
+            } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                change = item.sellIn < 5 ? 3
+                        : item.sellIn < 10 ? 2
+                        : 1;
+            } else {
+                change = item.sellIn < 0 ? -2 : -1;
             }
 
-            if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                if (item.sellIn < 0) {
-                    item.quality = 0;
-                } else {
-                    item.quality += item.sellIn < 5 ? 3
-                            : item.sellIn < 10 ? 2
-                            : 1;
-                    item.quality = Math.min(50, item.quality);
-                }
-                return;
-            }
-
-            item.quality += item.sellIn < 0 ? -2 : -1;
-            item.quality = Math.max(0, item.quality);
+            int MINIMUM = 0;
+            int MAXIMUM = 50;
+            item.quality = Math.max(MINIMUM, item.quality + change);
+            item.quality = Math.min(MAXIMUM, item.quality);
         }
     }
 }
