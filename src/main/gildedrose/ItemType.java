@@ -45,7 +45,7 @@ public enum ItemType implements Expires {
         this.name = name;
     }
 
-    public void applyQualityLimits(Item item) {
+    private static void applyQualityLimits(Item item) {
         int MINIMUM = 0;
         int MAXIMUM = 50;
         item.quality = Math.max(MINIMUM, item.quality);
