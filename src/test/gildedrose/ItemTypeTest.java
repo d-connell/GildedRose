@@ -26,6 +26,12 @@ public class ItemTypeTest {
     }
 
     @Test
+    void ShouldIdentifyConjured() {
+        ItemType itemType = ItemType.identifyItemType("Turkish Delight");
+        assertEquals(itemType, ItemType.CONJURED);
+    }
+
+    @Test
     void ShouldIdentifyOther() {
         ItemType itemType = ItemType.identifyItemType("Elixir of the Mongoose");
         assertEquals(itemType, ItemType.NORMAL);

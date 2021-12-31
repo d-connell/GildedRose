@@ -40,6 +40,15 @@ public enum ItemType implements Expires {
         }
     },
 
+    CONJURED(new String[]{
+            "Turkish Delight"
+    }) {
+        public void updateQuality(Item item) {
+            item.quality += item.sellIn < 0 ? -4 : -2;
+            applyQualityLimits(item);
+        }
+    },
+
     NORMAL(new String[]{}) {
         public void updateQuality(Item item) {
             item.quality += item.sellIn < 0 ? -2 : -1;
