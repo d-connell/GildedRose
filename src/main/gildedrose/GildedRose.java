@@ -23,11 +23,6 @@ public class GildedRose {
             } else {
                 ItemType.NORMAL.updateQuality(item);
             }
-
-            int MINIMUM = 0;
-            int MAXIMUM = 50;
-            item.quality = Math.max(MINIMUM, item.quality);
-            item.quality = Math.min(MAXIMUM, item.quality);
         }
     }
 }

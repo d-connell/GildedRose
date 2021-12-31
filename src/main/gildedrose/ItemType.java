@@ -16,16 +16,19 @@ public enum ItemType {
                         : item.sellIn < 10 ? 2
                         : 1;
             }
+            applyQualityLimits(item);
         }
     },
     CHEESE("Aged Brie") {
         public void updateQuality(Item item) {
             item.quality += item.sellIn < 0 ? 2 : 1;
+            applyQualityLimits(item);
         }
     },
     NORMAL("Normal") {
         public void updateQuality(Item item) {
             item.quality += item.sellIn < 0 ? -2 : -1;
+            applyQualityLimits(item);
         }
     };
 
@@ -34,5 +37,12 @@ public enum ItemType {
 
     ItemType (String name) {
         this.name = name;
+    }
+
+    public void applyQualityLimits(Item item) {
+        int MINIMUM = 0;
+        int MAXIMUM = 50;
+        item.quality = Math.max(MINIMUM, item.quality);
+        item.quality = Math.min(MAXIMUM, item.quality);
     }
 }
